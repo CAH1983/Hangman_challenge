@@ -20,7 +20,7 @@ class Hangman extends Component {
   constructor(props) {
     super(props);
     this.state = { numWrong: 0, guessed: new Set(), answer: "apple" };
-    // this.handleGuess = this.handleGuess.bind(this);
+    this.handleGuess = this.handleGuess.bind(this);
   }
 
   /*  guessedWord: show current-state of word: if guessed letters are {a,p,e}, show "app_e" for "apple" */
