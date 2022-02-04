@@ -53,14 +53,16 @@ class Hangman extends Component {
   }
 
   render() {
-    const { numWrong, guessed } = this.state;
+    const { numWrong } = this.state;
     let message = "";
+    let gameOver = false;
 
     if (numWrong >= 2) {
       message = `Heyyy! You're in a bad place`;
     }
     if (numWrong >= this.props.maxWrongGuesses) {
-      alert(`you're dead`);
+      message = `you're dead`;
+      gameOver = true;
     }
 
     return (
@@ -73,7 +75,7 @@ class Hangman extends Component {
         <p> wrong guesses: {numWrong}</p>
 
         <p className="Hangman-msg"> {message} </p>
-        <p className="Hangman-btns">{this.generateButtons()}</p>
+        {gameOver == false && <p className="Hangman-btns">{this.generateButtons()}</p>}
       </div>
     );
   }
