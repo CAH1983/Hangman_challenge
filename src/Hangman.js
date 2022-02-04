@@ -13,7 +13,7 @@ class Hangman extends Component {
   /** by default, allow 6 guesses and use provided gallows images. */
 
   static defaultProps = {
-    maxWrong: 6,
+    maxWrongGuesses: 6,
     images: [img0, img1, img2, img3, img4, img5, img6],
   };
 
@@ -28,13 +28,14 @@ class Hangman extends Component {
     return this.state.answer.split("").map((letter) => (this.state.guessed.has(letter) ? letter : "_"));
   }
 
-  /** handleGuest: handle a guessed letter:
+  /** handleGuess: handle a guessed letter:
     - add to guessed letters
     - if not in answer, increase number-wrong guesses
   */
 
   handleGuess(e) {
     let letter = e.target.value;
+
     this.setState((st) => ({
       guessed: st.guessed.add(letter),
       numWrong: st.numWrong + (st.answer.includes(letter) ? 0 : 1),
@@ -52,7 +53,16 @@ class Hangman extends Component {
   }
 
   render() {
-    let { numWrong } = this.state;
+    const { numWrong, guessed } = this.state;
+    let message = "";
+
+    if (numWrong >= 2) {
+      message = `Heyyy! You're in a bad place`;
+    }
+    if (numWrong >= this.props.maxWrongGuesses) {
+      alert(`you're dead`);
+    }
+
     return (
       <div className="Hangman">
         <h1>Hangman</h1>
@@ -62,11 +72,7 @@ class Hangman extends Component {
         <p className="Hangman-word">{this.guessedWord()}</p>
         <p> wrong guesses: {numWrong}</p>
 
-        <p className="Hangman-msg">
-          {" "}
-          heyyy
-          {numWrong > 2 && `You're in a bad place`}
-        </p>
+        <p className="Hangman-msg"> {message} </p>
         <p className="Hangman-btns">{this.generateButtons()}</p>
       </div>
     );
