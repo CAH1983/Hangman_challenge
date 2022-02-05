@@ -69,13 +69,13 @@ class Hangman extends Component {
       <div className="Hangman">
         <h1>Hangman</h1>
 
-        <img src={this.props.images[numWrong]} alt="hangman-img" />
+        <img src={this.props.images[numWrong]} alt={`${numWrong} wrong guesses`} />
 
         <p className="Hangman-word">{this.guessedWord()}</p>
         <p> wrong guesses: {numWrong}</p>
 
         <p className="Hangman-msg"> {message} </p>
-        {gameOver == false && <p className="Hangman-btns">{this.generateButtons()}</p>}
+        {gameOver === false && <p className="Hangman-btns">{this.generateButtons()}</p>}
       </div>
     );
   }
