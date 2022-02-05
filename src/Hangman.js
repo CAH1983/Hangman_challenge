@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./Hangman.css";
-import { randomWord } from "./words";
+import { randomWord, randomWordGenerated } from "./words";
 
 import img0 from "./Images/0.jpg";
 import img1 from "./Images/1.jpg";
@@ -20,10 +20,9 @@ class Hangman extends Component {
 
   constructor(props) {
     super(props);
-
-    let randomW = randomWord();
-    this.state = { numWrong: 0, guessed: new Set(), answer: `${randomW}` };
+    this.state = { numWrong: 0, guessed: new Set(), answer: `${randomWordGenerated}` };
     this.handleGuess = this.handleGuess.bind(this);
+    this.restartGame = this.restartGame.bind(this);
   }
 
   /*  guessedWord: show current-state of word: if guessed letters are {a,p,e}, show "app_e" for "apple" */
@@ -48,11 +47,20 @@ class Hangman extends Component {
   generateButtons() {
     const alphabetArr = "abcdefghijklmnopqrstuvwxyz".split("");
     return alphabetArr.map((letter, i) => (
-      <button key={`${letter}-${i}`} value={letter} onClick={this.handleGuess} disabled={this.state.guessed.has(letter)}>
+      <button className="keyboard-keys" key={`${letter}-${i}`} value={letter} onClick={this.handleGuess} disabled={this.state.guessed.has(letter)}>
         {" "}
         {letter}
       </button>
     ));
+  }
+
+  // start again the game
+  restartGame() {
+    this.setState({
+      numWrong: 0,
+      guessed: new Set(),
+      answer: `${randomWordGenerated}`,
+    });
   }
 
   render() {
@@ -78,7 +86,14 @@ class Hangman extends Component {
         <p> wrong guesses: {numWrong}</p>
 
         <p className="Hangman-msg"> {message} </p>
+
         {gameOver === false && <p className="Hangman-btns">{this.generateButtons()}</p>}
+
+        {gameOver === true && (
+          <button className="restart-btn" onClick={this.restartGame}>
+            Restart the game !
+          </button>
+        )}
       </div>
     );
   }
