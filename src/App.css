@@ -4,3 +4,10 @@
   align-items: center;
   text-align: center;
 }
+
+@font-face {
+  font-family: "AmaticSC";
+  font-style: normal;
+  src: local("AmaticSC");
+  src: url("../public/fonts/AmaticSC-Bold.ttf") format("truetype");
+}
