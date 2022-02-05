@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./Hangman.css";
-import { randomWord, randomWordGenerated } from "./words";
+import { randomWordGenerated } from "./words";
 
 import img0 from "./Images/0.jpg";
 import img1 from "./Images/1.jpg";
@@ -9,6 +9,8 @@ import img3 from "./Images/3.jpg";
 import img4 from "./Images/4.jpg";
 import img5 from "./Images/5.jpg";
 import img6 from "./Images/6.jpg";
+
+import hangman_logo from "../src/Images/hangman_logo.png";
 
 class Hangman extends Component {
   /** by default, allow 6 guesses and use provided gallows images. */
@@ -47,7 +49,7 @@ class Hangman extends Component {
   generateButtons() {
     const alphabetArr = "abcdefghijklmnopqrstuvwxyz".split("");
     return alphabetArr.map((letter, i) => (
-      <button className="keyboard-keys" key={`${letter}-${i}`} value={letter} onClick={this.handleGuess} disabled={this.state.guessed.has(letter)}>
+      <button className="keyboard-key" key={`${letter}-${i}`} value={letter} onClick={this.handleGuess} disabled={this.state.guessed.has(letter)}>
         {" "}
         {letter}
       </button>
